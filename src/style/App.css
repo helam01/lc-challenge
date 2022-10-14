@@ -3,7 +3,7 @@
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 8vmin;
   pointer-events: none;
 }
 
@@ -35,4 +35,19 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+main {
+  display: flex;
+  background-color: #cecece;
+}
+
+.content-container {
+  width: 100%;
+}
+
+.menu-item-action {
+  min-height: 100px;
+  text-decoration: none;
+  color:#5F6CAF
 }
