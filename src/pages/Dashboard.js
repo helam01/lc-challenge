@@ -13,68 +13,19 @@ import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
+import APIService from '../services/api';
 
-function createData(id, name, departure, destination, travellers, transportation) {
-    return { id, name, departure, destination, travellers, transportation };
-}
-
-const tableInfo = (quotes) =>{
-    if ( quotes.length < 1 ) {
-        return (<></>)
-    }
-    return (
-        <Table sx={{ minWidth: 800 }} aria-label="simple table">
-            <TableHead>
-            <TableRow>
-                <TableCell>#ID</TableCell>
-                <TableCell >Name</TableCell>
-                <TableCell >Departure</TableCell>
-                <TableCell >Destination</TableCell>
-                <TableCell >Travellers</TableCell>
-                <TableCell >Transportation</TableCell>
-                <TableCell >Action</TableCell>
-            </TableRow>
-            </TableHead>
-            <TableBody>
-                
-            {quotes.map((row) => (
-                <TableRow
-                key={row.id}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
-                <TableCell component="th" scope="row">
-                    {row.id}
-                </TableCell>
-                <TableCell >{row.name}</TableCell>
-                <TableCell >{row.departure}</TableCell>
-                <TableCell >{row.destination}</TableCell>
-                <TableCell >{row.travellers}</TableCell>
-                <TableCell >{row.transportation}</TableCell>
-                <TableCell >
-                    <Link to={`/quote/${row.id}`} >
-                        <Button size="small">Detalhes</Button>
-                    </Link>
-                </TableCell>
-                </TableRow>
-            ))}
-            </TableBody>
-        </Table>
-    );
-}
 
 const DashboardPage = () =>{
     const [quotes, setQuotes] = useState([]);
     const [loader, setLoader] = useState(<CircularProgress/>);
 
     useEffect(()=>{
-        setTimeout(()=>{
-            const rows = [
-                createData('1', 'Frozen yoghurt', 'Londom (2022-10-15)', 'China (2022-10-25)', 2, 'rental car'),
-            ];
-
-            setQuotes(rows);
-            setLoader(<></>)
-        }, 2000)
+        APIService.getQuotes()
+            .then(quotes => {
+                setQuotes(quotes);
+                setLoader(<></>)
+            })
     });
 
 
@@ -89,24 +40,82 @@ const DashboardPage = () =>{
                 justifyContent="center"
                 alignItems="center">
 
-
                 <Grid item xs={6}>
-                    <TableContainer 
-                        component={Paper}
+                <Grid 
+                    component={Paper}
+                    sx={{
+                        minWidth: '800px',
+                        minHeight: '300px',
+                        padding:'10px 20px',
+                    }}>
+                        <h3>Quotes list </h3>
+                    <Divider />
+                    
+                    <Grid 
                         sx={{
-                            minWidth: '300px',
-                            minHeight: '300px'
+                            minHeight: '300px',
+                            height: 'auto',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                            alignItems: 'center'
                         }}>
-                            
-                        <h3>Quotes</h3>
-                        <Divider />
-                        {loader}
+                        
+                    
+                        <Grid item >
+                            {loader}
+                        </Grid>
+                        
                         {tableInfo(quotes)}
-                    </TableContainer>
+                        </Grid>
+                    </Grid>
                 </Grid>
             </Grid>
             </Box>
         </div>
+    );
+}
+
+const tableInfo = (quotes) =>{
+    if ( quotes.length < 1 ) {
+        return (<></>)
+    }
+
+    return (
+        <Table sx={{ minWidth: 800 }} aria-label="simple table">
+            <TableHead>
+            <TableRow>
+                <TableCell>#ID</TableCell>
+                <TableCell >Name</TableCell>
+                <TableCell >From</TableCell>
+                <TableCell >Destination</TableCell>
+                <TableCell >Travellers</TableCell>
+                <TableCell >Action</TableCell>
+            </TableRow>
+            </TableHead>
+            <TableBody>
+                
+            {quotes.map((row) => (
+                <TableRow
+                key={row.id}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
+                <TableCell component="th" scope="row">
+                    {row.id}
+                </TableCell>
+                <TableCell >{row.name}</TableCell>
+                <TableCell >{row.from}</TableCell>
+                <TableCell >{row.destination}</TableCell>
+                <TableCell >{row.travellers}</TableCell>
+                <TableCell >
+                    <Link to={`/quote/${row.id}`} >
+                        <Button size="small">Details</Button>
+                    </Link>
+                </TableCell>
+                </TableRow>
+            ))}
+            </TableBody>
+        </Table>
     );
 }
 
