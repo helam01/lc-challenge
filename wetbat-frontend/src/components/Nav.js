@@ -12,16 +12,12 @@ import HomeIcon from '@mui/icons-material/Home';
 const Nav = () => {
     return (
         <>
-        <Paper sx={{ 
-            width: 200, 
-            maxWidth: '100%',
-            height: '100vh' 
-        }}>
+        <Paper className="nav-container">
             <MenuList>
                 <Link to={'/'} className="menu-item-action">
-                    <MenuItem>
+                    <MenuItem className="menu-item">
                         <ListItemIcon>
-                            <HomeIcon fontSize="small" />
+                            <HomeIcon fontSize="small" className="menu-item-icon" />
                         </ListItemIcon>
                         <ListItemText sx={{
                             textAlign: 'left'

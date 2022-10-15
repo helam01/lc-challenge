@@ -1,4 +1,4 @@
-import logo from '../assets/images/logo.svg';
+import logo from '../assets/images/wetbat-logo.png';
 import '../style/App.css';
 import React from 'react';
 
