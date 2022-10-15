@@ -26,7 +26,7 @@ const DashboardPage = () =>{
                 setQuotes(quotes);
                 setLoader(<></>)
             })
-    });
+    }, []);
 
 
     return (
