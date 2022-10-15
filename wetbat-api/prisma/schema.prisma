@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Contact {
+  id         Int     @id @default(autoincrement())
+  first_name String
+  last_name  String
+  email      String  @unique
+  phone      String
+  Quote      Quote[]
+}
+
+model Location {
+  id               Int     @id @default(autoincrement())
+  name             String
+  quoteOrigin      Quote[] @relation(name: "origin")
+  quoteDestination Quote[] @relation(name: "destination")
+}
+
+model Transportation {
+  id    Int     @id @default(autoincrement())
+  name  String
+  Quote Quote[]
+}
+
+model Quote {
+  id                Int            @id @default(autoincrement())
+  contact_id        Int
+  origin_id         Int
+  destination_id    Int
+  transportation_id Int
+  departure_date    String
+  return_date       String
+  travellers        Int
+  contact           Contact        @relation(fields: [contact_id], references: [id])
+  transportation    Transportation @relation(fields: [transportation_id], references: [id])
+  origin            Location       @relation(fields: [origin_id], references: [id], name: "origin")
+  destination       Location       @relation(fields: [destination_id], references: [id], name: "destination")
+}
