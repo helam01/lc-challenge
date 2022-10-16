@@ -49,7 +49,7 @@ const QuotePage = (props) =>{
 
                 setLoader(<></>)
             })
-    });
+    },[]);
 
     return (
         <div >

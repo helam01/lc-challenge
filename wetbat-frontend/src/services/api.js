@@ -21,7 +21,6 @@ class APIService {
         return await new Promise(resolve =>{
             this.http.get('/quotes')
                 .then(response => {
-                    console.log(response)
                     resolve(response.data);
                 }).catch(error => {
                     console.error('Error: ', error);
@@ -37,6 +36,7 @@ class APIService {
                     resolve(response.data);
                 }).catch(error => {
                     console.error('Error: ', error);
+                    resolve([]);
                 });
         });
     }

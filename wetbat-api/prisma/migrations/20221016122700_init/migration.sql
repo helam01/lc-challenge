@@ -13,7 +13,8 @@ CREATE TABLE `Contact` (
 -- CreateTable
 CREATE TABLE `Location` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `name` VARCHAR(191) NOT NULL,
+    `country` VARCHAR(191) NOT NULL,
+    `airport` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -33,8 +34,8 @@ CREATE TABLE `Quote` (
     `origin_id` INTEGER NOT NULL,
     `destination_id` INTEGER NOT NULL,
     `transportation_id` INTEGER NOT NULL,
-    `departure_date` VARCHAR(191) NOT NULL,
-    `return_date` VARCHAR(191) NOT NULL,
+    `departure_date` DATE NOT NULL,
+    `return_date` DATE NOT NULL,
     `travellers` INTEGER NOT NULL,
 
     PRIMARY KEY (`id`)

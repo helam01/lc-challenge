@@ -1,4 +1,5 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Res, HttpStatus } from '@nestjs/common';
+import { Response } from 'express';
 import { QuoteService } from './quote.service';
 
 @Controller('quotes')
@@ -11,7 +12,12 @@ export class QuoteController {
   }
 
   @Get(':id')
-  async getQuote(@Param('id') id: string): Promise<any> {
-    return await this.quoteService.getQuote(id);
+  async getQuote(@Param('id') id: number, @Res() res: Response): Promise<any> {
+    const quote = await this.quoteService.getQuote(Number(id));
+    if (quote === null) {
+      res.status(HttpStatus.NOT_FOUND).send();
+    } else {
+      res.status(HttpStatus.OK).json(quote);
+    }
   }
 }

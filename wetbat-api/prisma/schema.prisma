@@ -18,7 +18,8 @@ model Contact {
 
 model Location {
   id               Int     @id @default(autoincrement())
-  name             String
+  country          String
+  airport          String
   quoteOrigin      Quote[] @relation(name: "origin")
   quoteDestination Quote[] @relation(name: "destination")
 }
@@ -35,8 +36,8 @@ model Quote {
   origin_id         Int
   destination_id    Int
   transportation_id Int
-  departure_date    String
-  return_date       String
+  departure_date    DateTime       @db.Date
+  return_date       DateTime       @db.Date
   travellers        Int
   contact           Contact        @relation(fields: [contact_id], references: [id])
   transportation    Transportation @relation(fields: [transportation_id], references: [id])
