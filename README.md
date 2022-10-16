@@ -1,8 +1,12 @@
 # Launch Code Challenge Aplication
 
-This repository has two aplications, one frontend created with ReactJS, and one Backend API created with NestJS.
+This repository has two aplications, one frontend and one Backend API.
 
 Both application use Nodejs v14.18
+
+The backend use NestJS Framework, Prisma as ORM and MySql as Database.
+
+Frontend use ReactJS
 
 ## Starting Backend API
 Inside the directory 'wetbat-api' run:
